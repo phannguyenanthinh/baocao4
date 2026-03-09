@@ -1,162 +1,495 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<title>Dự án tìm hiểu nhà văn Nam Cao</title>
+    <meta charset="UTF-8">
+    <title>Dự án tìm hiểu nhà văn Nam Cao</title>
 
-<style>
-body{
-    font-family: Arial;
-    margin:0;
-    background:#f2f2f2;
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: linear-gradient(120deg, #eef2f7, #dce6f2);
+        }
+
+        /* HEADER */
+
+        header {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        /* MENU */
+
+        nav {
+            background: #34495e;
+            text-align: center;
+            padding: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #f1c40f;
+            transform: scale(1.1);
+        }
+
+     
+        /* LINK STYLE */
+
+a{
+color:#2c3e50;
+font-weight:bold;
+text-decoration:none;
+position:relative;
+transition:0.3s;
 }
 
-header{
-    background:#2c3e50;
-    color:white;
-    text-align:center;
-    padding:25px;
+/* hiệu ứng gạch chân chạy */
+
+a::after{
+content:"";
+position:absolute;
+width:0%;
+height:2px;
+left:0;
+bottom:-2px;
+background:#e74c3c;
+transition:0.3s;
 }
 
-nav{
-    background:#34495e;
-    text-align:center;
-    padding:10px;
+a:hover{
+color:#e74c3c;
 }
 
-nav a{
-    color:white;
-    margin:15px;
-    text-decoration:none;
-    font-weight:bold;
+a:hover::after{
+width:100%;
 }
 
-.container{
-    width:75%;
-    margin:auto;
-    background:white;
-    padding:25px;
-}
+/* icon link */
 
-h2{
-    color:#2c3e50;
-    border-bottom:2px solid #ddd;
-    padding-bottom:5px;
+a[target="_blank"]::before{
+font-size:14px;
 }
+        /* Link trong danh sách */
+        ul li a {
+            font-size: 17px;
+        }
 
-img{
-    display:block;
-    margin:auto;
-    width:220px;
-    border-radius:10px;
-}
+        /* Footer nguồn */
+        .nguon {
+            background: #f2f2f2;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+            border-top: 3px solid #3498db;
+        }
 
-footer{
-    text-align:center;
-    background:#2c3e50;
-    color:white;
-    padding:10px;
-}
-</style>
+        .nguon h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .nguon ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nguon li {
+            margin: 8px 0;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 75%;
+            margin: auto;
+            padding: 25px;
+        }
+
+        /* CARD */
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* HEADINGS */
+
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        /* IMAGE */
+
+        .author {
+            display: block;
+            margin: auto;
+            width: 400px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: 0.4s;
+        }
+
+        .author:hover {
+            transform: scale(1.08);
+        }
+
+        /* LIST */
+
+        ul {
+            line-height: 1.7;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        /* BUTTON TOP */
+
+        #topBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* SCROLL ANIMATION */
+
+        .section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 
 </head>
 
 <body>
 
-<header>
-<h1>DỰ ÁN TÌM HIỂU VỀ NHÀ VĂN NAM CAO</h1>
-<p>Sưu tầm các tác phẩm và tìm hiểu cảm hứng sáng tác</p>
-</header>
+    <header>
+        <h1>DỰ ÁN TÌM HIỂU VỀ NHÀ VĂN NAM CAO</h1>
+        <p>Sưu tầm các tác phẩm và tìm hiểu cảm hứng sáng tác</p>
+    </header>
 
-<nav>
-<a href="#thongtin">Thông tin dự án</a>
-<a href="#ketqua">Kết quả nghiên cứu</a>
-<a href="#luutru">Sử dụng & lưu trữ</a>
-<a href="#kinhnghiem">Kinh nghiệm</a>
-<a href="#danhgia">Tự đánh giá</a>
-</nav>
+    <nav>
+        <a href="#thongtin">Thông tin dự án</a>
+        <a href="#ketqua">Kết quả nghiên cứu</a>
+        <a href="#luutru">Sử dụng</a>
+        <a href="#kinhnghiem">Kinh nghiệm</a>
+        <a href="#danhgia">Tự đánh giá</a>
+    </nav>
 
-<div class="container">
+    <div class="container">
 
 
-<h2 id="thongtin">I. Thông tin chung về bài tập dự án</h2>
+        <div class="card section">
+            <table>
+                <tr>
+                    <td>
+                        <h2 id="thongtin">I. Thông tin chung về bài tập dự án</h2>
 
-<p><b>Yêu cầu:</b> Sưu tầm các tác phẩm và tìm hiểu cảm hứng sáng tác của Nam Cao.</p>
+                        <p><b>Yêu cầu:</b> Sưu tầm các tác phẩm và tìm hiểu cảm hứng sáng tác của Nam Cao.</p>
 
-<p><b>Thời gian thực hiện:</b> 27/2/2026 – 9/3/2026</p>
+                        <p><b>Thời gian thực hiện:</b> 27/2/2026 – 9/3/2026</p>
 
-<p><b>Các công việc chính:</b></p>
-<ul>
-<li>Sưu tầm hình ảnh và tư liệu về cuộc đời và bối cảnh sáng tác.</li>
-<li>Sưu tầm các tác phẩm tiêu biểu như: Chí Phèo, Lão Hạc, Đời thừa, Trăng sáng, Sống mòn.</li>
-<li>Hệ thống hóa tài liệu thành sản phẩm hoàn chỉnh.</li>
-<li>Giới thiệu và thuyết minh kết quả trước lớp.</li>
-</ul>
+                        <p><b>Các công việc chính:</b></p>
 
-<p><b>Phân công nhiệm vụ:</b></p>
-<ul>
-<li>Lưu trữ tài liệu: Phan Nguyễn An Thịnh</li>
-<li>Viết báo cáo: Nguyễn Nhật Minh, Lê Trần Trúc Nguyên, Lê Đức Gia Hưng</li>
-<li>Sưu tầm tác phẩm: Mai Vạn Hưng, Nguyễn Anh Khoa</li>
-<li>Sưu tầm thông tin về con người: Trí Tin, Lê Quỳnh Anh</li>
-<li>Nhóm trưởng: Nguyễn Đình Nguyên</li>
-</ul>
+                        <ul>
+                            <li>Sưu tầm hình ảnh và tư liệu về cuộc đời và bối cảnh sáng tác.</li>
+                            <li>Sưu tầm các tác phẩm tiêu biểu như: Chí Phèo, Lão Hạc, Đời thừa, Trăng sáng, Sống mòn.
+                            </li>
+                            <li>Hệ thống hóa tài liệu thành sản phẩm hoàn chỉnh.</li>
+                            <li>Giới thiệu và thuyết minh kết quả trước lớp.</li>
+                        </ul>
 
-<h2 id="ketqua">II. Kết quả chính của bài tập dự án</h2>
+                        <p><b>Phân công nhiệm vụ:</b></p>
 
-<h3>1. Các tác phẩm tiêu biểu</h3>
-<ul>
-<li>Chí Phèo</li>
-<li>Lão Hạc</li>
-<li>Đời thừa</li>
-<li>Trăng sáng</li>
-<li>Sống mòn</li>
-</ul>
+                        <ul>
+                            <li>Lưu trữ tài liệu: Phan Nguyễn An Thịnh</li>
+                            <li>Viết báo cáo: Nguyễn Nhật Minh, Lê Trần Trúc Nguyên, Lê Đức Gia Hưng</li>
+                            <li>Sưu tầm tác phẩm: Mai Vạn Hưng, Nguyễn Anh Khoa</li>
+                            <li>Sưu tầm thông tin về con người: Trí Tin, Lê Quỳnh Anh</li>
+                            <li>Nhóm trưởng: Nguyễn Đình Nguyên</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <img class="author" src="Portrait_of_Nam_Cao.jpg">
+                    </td>
+                </tr>
+            </table>
 
-<h3>2. Nội dung và giá trị</h3>
-<p>
-Các tác phẩm của Nam Cao phản ánh sâu sắc xã hội Việt Nam trước Cách mạng tháng Tám 1945.
-Nhà văn tập trung khắc họa số phận người nông dân nghèo và bi kịch của tầng lớp trí thức
-nghèo trong xã hội cũ.
-</p>
 
-<h3>3. Cảm hứng sáng tác</h3>
-<ul>
-<li>Cảm hứng hiện thực: phản ánh chân thực cuộc sống khổ cực.</li>
-<li>Cảm hứng nhân đạo: cảm thông với những con người bị áp bức.</li>
-<li>Khát vọng bảo vệ nhân phẩm con người.</li>
-</ul>
+        </div>
 
-<h2 id="luutru">III. Sử dụng và lưu trữ kết quả</h2>
+        <div class="card section">
 
-<ul>
-<li>Dùng trong học tập môn Ngữ văn.</li>
-<li>Dùng trong hoạt động ngoại khóa về văn học.</li>
-<li>Lưu tại thư viện hoặc tủ sách của lớp.</li>
-</ul>
+            <h2 id="ketqua">II. Kết quả chính của bài tập dự án</h2>
 
-<h2 id="kinhnghiem">IV. Kinh nghiệm thực hiện dự án</h2>
+            <p>
+                <a href="https://vi.wikipedia.org/wiki/Nam_Cao">Nam Cao</a> (1915–1951), tên thật Trần Hữu Tri, là nhà
+                văn hiện thực kiệt xuất và là nhà báo – chiến sĩ tiêu biểu của văn học Việt Nam thế kỷ XX.
+                Với ngòi bút nhân đạo sâu sắc, ông tập trung phản ánh số phận người nông dân và tầng lớp trí thức nghèo
+                trong xã hội cũ.
+                Ông nổi tiếng với các tác phẩm như <b> <a href="https://vi.wikipedia.org/wiki/Ch%C3%AD_Ph%C3%A8o">Chí
+                        Phèo</a></b>, <b><a href="https://vi.wikipedia.org/wiki/L%C3%A3o_H%E1%BA%A1c">Lão hạc</a></b>,
+                <b><a href="https://vi.wikipedia.org/wiki/S%E1%BB%91ng_m%C3%B2n">Sống mòn</a></b>.
+                Năm 1996, ông được truy tặng <b>Giải thưởng Hồ Chí Minh về văn học nghệ thuật</b>.
+            </p>
 
-<p>
-Cần phân công công việc rõ ràng cho từng thành viên,
-tổng hợp tài liệu từ nhiều nguồn đáng tin cậy và
-trình bày nội dung rõ ràng, logic.
-</p>
+            <h3>1. Con người và cuộc đời</h3>
 
-<h2 id="danhgia">V. Tự đánh giá</h2>
+            <p><b>Tiểu sử:</b>
+                Nam Cao sinh ra tại làng Đại Hoàng, phủ Lý Nhân, tỉnh Hà Nam trong một gia đình Công giáo bậc trung.
+                Quê hương nghèo khó đã ảnh hưởng sâu sắc đến tư tưởng và cảm hứng sáng tác của ông.
+            </p>
 
-<p>
-Dự án đã hoàn thành đúng thời hạn và giúp nhóm hiểu rõ hơn
-về tư tưởng nhân đạo sâu sắc trong sáng tác của Nam Cao.
-Quá trình thực hiện cũng giúp nâng cao khả năng tìm kiếm,
-tổng hợp và phân tích tài liệu.
-</p>
+            <p><b>Con người:</b>
+                Ông có vẻ ngoài ít nói, trầm lặng nhưng bên trong là một tâm hồn nhân hậu, giàu lòng trắc ẩn và gắn bó
+                sâu sắc với người nghèo khổ trong xã hội.
+            </p>
 
-</div>
+            <p><b>Sự nghiệp:</b></p>
 
-<footer>
-<p>Dự án Ngữ văn - Tổ 4</p>
-</footer>
+            <ul>
+                <li>Trước Cách mạng tháng Tám 1945: làm nhiều nghề như dạy học, viết báo, thư ký.</li>
+                <li>Sau năm 1945: tích cực tham gia cách mạng và hoạt động văn hóa.</li>
+                <li>Ông từng giữ chức Chủ tịch xã và tham gia công tác kháng chiến.</li>
+                <li>Năm 1951, Nam Cao hy sinh trên đường đi công tác trong thời kỳ kháng chiến chống Pháp.</li>
+            </ul>
+
+            <h3>2. Sự nghiệp văn học</h3>
+
+            <p>
+                Nam Cao được xem là một trong những nhà văn hiện thực lớn của văn học Việt Nam,
+                tác phẩm của ông mang đậm tính triết lý và tinh thần nhân văn sâu sắc.
+            </p>
+
+            <h4>Đề tài chính</h4>
+
+            <ul>
+                <li>
+                    <b>Người nông dân nghèo:</b>
+                    Nam Cao khắc họa cuộc sống khổ cực, sự tha hóa và bi kịch của người nông dân trong xã hội cũ,
+                    đồng thời thể hiện vẻ đẹp tâm hồn và nhân phẩm của họ.
+                    <br>
+                    Ví dụ: <b>Chí Phèo</b>, <b>Lão Hạc</b>, <b><a
+                            href="https://www.scribd.com/document/835852807/Lang-R%E1%BA%ADn">Lang rận</a></b>.
+                </li>
+
+                <li>
+                    <b>Người trí thức nghèo:</b>
+                    Ông phản ánh bi kịch của tầng lớp trí thức nghèo phải sống trong cảnh túng thiếu,
+                    bị giằng xé giữa lý tưởng cao đẹp và cuộc sống cơm áo.
+                    <br>
+                    Ví dụ: <b><a href="https://vi.wikisource.org/wiki/%C4%90%E1%BB%9Di_th%E1%BB%ABa">Đời thừa</a> </b>,
+                    <b><a href="https://www.scribd.com/document/782182966/GIA-NG-SA-NG">Giăng sáng</a></b>, <b>Sống
+                        mòn</b>.
+                </li>
+            </ul>
+
+            <h4>Phong cách nghệ thuật</h4>
+
+            <ul>
+                <li>
+                    <b>Quan điểm sáng tác:</b>
+                    Văn chương phải trung thực và nhân đạo, có nhiệm vụ khám phá và phản ánh những góc khuất của cuộc
+                    sống.
+                </li>
+
+                <li>
+                    <b>Đặc điểm nghệ thuật:</b>
+                    <ul>
+                        <li>Giọng văn triết lý sâu sắc.</li>
+                        <li>Phân tích tâm lý nhân vật tinh tế.</li>
+                        <li>Thể hiện sự trăn trở về số phận con người.</li>
+                        <li>Kết hợp hiện thực và cảm hứng nhân đạo.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>3. Tác phẩm tiêu biểu</h4>
+
+            <ul>
+                <li>Chí Phèo (1941)</li>
+                <li>Lão Hạc (1943)</li>
+                <li>Sống mòn (viết xong năm 1944)</li>
+                <li><a href="https://vi.wikisource.org/wiki/%C4%90%C3%B4i_m%E1%BA%AFt_(Nam_Cao)">Đôi mắt</a> (1948)</li>
+            </ul>
+
+        </div>
+
+        <div class="card section">
+
+            <h2 id="luutru">III. Sử dụng và lưu trữ kết quả</h2>
+
+            <ul>
+                <li>Dùng trong học tập môn Ngữ văn.</li>
+                <li>Dùng trong hoạt động ngoại khóa về văn học.</li>
+                <li>Lưu tại thư viện hoặc tủ sách của lớp.</li>
+            </ul>
+
+        </div>
+
+        <div class="card section">
+
+            <h2 id="kinhnghiem">IV. Kinh nghiệm thực hiện dự án</h2>
+
+            <p>
+                Cần phân công công việc rõ ràng cho từng thành viên,
+                tổng hợp tài liệu từ nhiều nguồn đáng tin cậy và
+                trình bày nội dung rõ ràng, logic.
+            </p>
+
+        </div>
+
+        <div class="card section">
+
+            <h2 id="danhgia">V. Tự đánh giá</h2>
+
+            <p>
+                Dự án đã hoàn thành đúng thời hạn và giúp nhóm hiểu rõ hơn
+                về tư tưởng nhân đạo sâu sắc trong sáng tác của Nam Cao.
+                Quá trình thực hiện cũng giúp nâng cao khả năng tìm kiếm,
+                tổng hợp và phân tích tài liệu.
+            </p>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Dự án Ngữ văn - Tổ 4</p>
+
+    </footer>
+    <footer class="nguon">
+   <p style="color: black;">© 2026 Website giới thiệu nhà văn Nam Cao</p>
+
+        <table style="text-align: center; position: absolute; left:25% ;">
+            <caption>
+                <h3>Nguồn tham khảo</h3>
+            </caption>
+            <tr style="padding: auto;">
+                <td> <a href="https://vi.wikipedia.org/wiki/Nam_Cao" target="_blank">
+                        Wikipedia - Nam Cao
+                    </a> </td>
+                <td> <a href="https://vi.wikipedia.org/wiki/Ch%C3%AD_Ph%C3%A8o" target="_blank">
+                        Tác phẩm Chí Phèo - Wikipedia
+                    </a> </td>
+                <td> <a href="https://vi.wikipedia.org/wiki/L%C3%A3o_H%E1%BA%A1c" target="_blank">
+                        Tác phẩm Lão Hạc - Wikipedia
+                    </a> </td>
+
+            </tr>
+            <tr>
+                <td> <a href="https://vi.wikipedia.org/wiki/S%E1%BB%91ng_m%C3%B2n" target="_blank">
+                        Tiểu thuyết Sống mòn - Wikipedia
+                    </a>
+                </td>
+                <td>
+                    <a href="https://www.scribd.com/document/835852807/Lang-R%E1%BA%ADn">Tác phẩm Lang Rận - Isach</a>
+                </td>
+                <td> <a href="https://vi.wikisource.org/wiki/%C4%90%E1%BB%9Di_th%E1%BB%ABa">Đời thừa - Wikisource</a>
+                </td>
+
+            </tr>
+            <tr>
+                <td> <a href="https://www.scribd.com/document/782182966/GIA-NG-SA-NG">Giăng sáng - SCRIBD</a>
+                </td>
+                <td> <a href="https://vi.wikisource.org/wiki/%C4%90%C3%B4i_m%E1%BA%AFt_(Nam_Cao)">Đôi mắt -
+                        Wikisource</a>
+                </td>
+                <td style="color: black;"> Sách giáo khoa ngữ văn </td>
+            </tr>
+        </table>
+
+    </footer>
+    <button id="topBtn">⬆</button>
+
+    <script>
+// tự mở link ngoài sang tab mới
+
+document.querySelectorAll("a[href^='http']").forEach(link => {
+link.setAttribute("target","_blank");
+});
+        const sections = document.querySelectorAll('.section');
+
+        window.addEventListener('scroll', () => {
+
+            sections.forEach(section => {
+
+                const top = section.getBoundingClientRect().top;
+
+                if (top < window.innerHeight - 100) {
+                    section.classList.add('show');
+                }
+
+            });
+
+        });
+
+        const btn = document.getElementById("topBtn");
+
+        window.onscroll = function () {
+
+            if (document.documentElement.scrollTop > 200) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+
+        };
+
+        btn.onclick = function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+    </script>
 
 </body>
+
 </html>
